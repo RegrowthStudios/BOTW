@@ -2,7 +2,8 @@
 *.slo
 *.lo
 *.o
-*.obj
+obj/
+bin/
 
 # Precompiled Headers
 *.gch
@@ -27,3 +28,8 @@
 *.exe
 *.out
 *.app
+
+# VS Files
+*.sdf
+*.suo
+*.opendb
