@@ -17,6 +17,7 @@
 
 #include <Vorb/ui/IGameScreen.h>
 #include <Vorb/VorbPreDecl.inl>
+#include "GameplayScene.h"
 
 DECL_VG(class SpriteBatch)
 DECL_VG(class SpriteFont)
@@ -38,13 +39,12 @@ public:
 
     virtual void onExit(const vui::GameTime& gameTime) override;
 
+    virtual void registerRendering(vg::Renderer& renderer) override;
+
     virtual void update(const vui::GameTime& gameTime) override;
 
-    virtual void draw(const vui::GameTime& gameTime) override;
-
 private:
-    std::unique_ptr<vg::SpriteBatch> m_spriteBatch = nullptr;
-    std::unique_ptr<vg::SpriteFont>  m_spriteFont  = nullptr;
+    GameplayScene m_scene; ///< Rendering
 };
 
 

@@ -29,18 +29,22 @@ void GameplayScreen::destroy(const vui::GameTime& gameTime) {
 }
 
 void GameplayScreen::onEntry(const vui::GameTime& gameTime) {
-    m_spriteBatch = std::make_unique<vg::SpriteBatch>();
-    m_spriteFont  = std::make_unique<vg::SpriteFont>();
+
 }
 
 void GameplayScreen::onExit(const vui::GameTime& gameTime) {
     
 }
 
-void GameplayScreen::update(const vui::GameTime& gameTime) {
-    
+void GameplayScreen::registerRendering(vg::Renderer& renderer) {
+
+    m_game->getRenderer().setBackgroundColor(f32v4(0.8f, 0.8f, 1.0f, 1.0f));
+
+    m_scene.init(&m_game->getWindow());
+    m_scene.initCamera();
+    renderer.registerScene(&m_scene);
 }
 
-void GameplayScreen::draw(const vui::GameTime& gameTime) {
+void GameplayScreen::update(const vui::GameTime& gameTime) {
     
 }

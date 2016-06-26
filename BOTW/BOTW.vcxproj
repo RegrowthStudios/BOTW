@@ -71,11 +71,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\App.cpp" />
+    <ClCompile Include="src\GameplayScene.cpp" />
     <ClCompile Include="src\GameplayScreen.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\App.h" />
+    <ClInclude Include="src\GameplayScene.h" />
     <ClInclude Include="src\GameplayScreen.h" />
     <ClInclude Include="src\stdafx.h" />
   </ItemGroup>

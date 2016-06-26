@@ -22,11 +22,11 @@ class GameplayScreen;
 class App : public vui::MainGame {
 public:
 
-    virtual void onInit() override;
+    virtual void onInit()     override;
 
     virtual void addScreens() override;
 
-    virtual void onExit() override;
+    virtual void onExit()     override;
 
 private:
     GameplayScreen * m_gameplayScreen = nullptr;
