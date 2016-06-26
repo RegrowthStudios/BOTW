@@ -17,10 +17,13 @@
 
 #include <Vorb/ui/IGameScreen.h>
 #include <Vorb/VorbPreDecl.inl>
+#include <Vorb/graphics/PostProcess.h>
 #include "GameplayScene.h"
+
 
 DECL_VG(class SpriteBatch)
 DECL_VG(class SpriteFont)
+
 
 class GameplayScreen : public vui::IGameScreen {
 public:
@@ -41,10 +44,13 @@ public:
 
     virtual void registerRendering(vg::Renderer& renderer) override;
 
+    virtual void onRenderFrame(const vui::GameTime& gameTime) override;
+
     virtual void update(const vui::GameTime& gameTime) override;
 
 private:
     GameplayScene m_scene; ///< Rendering
+    vg::PostProcessBloom m_bloom; ///< Bloom post process
 };
 
 

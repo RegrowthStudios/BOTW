@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "GameplayScene.h"
+#include <Vorb/ui/MainGame.h>
 #include <Vorb/graphics/SpriteBatch.h>
 #include <Vorb/ui/GameWindow.h>
 
@@ -24,8 +25,16 @@ void GameplayScene::render(const vui::GameTime& gameTime) {
     m_spriteBatch->begin();
 
     // Debug quad
-    m_spriteBatch->draw(0, f32v2(0.0f, 0.0f), f32v2(500.0f), color4(255, 0, 0, 255));
+    m_spriteBatch->draw(0, f32v2(300.0f, 300.0f), f32v2(200.0f), color4(255, 255, 255, 255));
+    m_spriteBatch->draw(0, f32v2(150.0f, 150.0f), f32v2(200.0f), color4(80, 80, 255, 255));
 
     m_spriteBatch->end();
     m_spriteBatch->render(f32v2(m_window->getViewportDims()));
+
+    printf("%lf\n", gameTime.elapsed);
+}
+
+void GameplayScene::dispose() {
+    m_spriteBatch.reset();
+    IScene::dispose();
 }

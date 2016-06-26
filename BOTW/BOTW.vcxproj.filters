@@ -8,9 +8,7 @@
     <ClCompile Include="src\App.cpp">
       <Filter>Screens</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameplayScene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <ClCompile Include="src\GameplayScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\stdafx.h" />
@@ -20,9 +18,7 @@
     <ClInclude Include="src\App.h">
       <Filter>Screens</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameplayScene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClInclude Include="src\GameplayScene.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Screens">

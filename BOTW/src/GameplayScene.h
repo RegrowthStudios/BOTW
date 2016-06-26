@@ -33,6 +33,8 @@ public:
 
     virtual void render(const vui::GameTime& gameTime) override;
 
+    virtual void dispose() override;
+
 private:
     const vui::GameWindow* m_window;
     std::unique_ptr<vg::SpriteBatch> m_spriteBatch = nullptr;
