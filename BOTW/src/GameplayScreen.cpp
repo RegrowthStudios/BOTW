@@ -21,15 +21,15 @@ i32 GameplayScreen::getPreviousScreen() const {
 }
 
 void GameplayScreen::build() {
-    
+    // Empty
 }
 
 void GameplayScreen::destroy(const vui::GameTime& gameTime) {
-
+    // Empty
 }
 
 void GameplayScreen::onEntry(const vui::GameTime& gameTime) {
-
+    // Empty
 }
 
 void GameplayScreen::onExit(const vui::GameTime& gameTime) {
@@ -42,14 +42,14 @@ void GameplayScreen::onExit(const vui::GameTime& gameTime) {
 
 void GameplayScreen::registerRendering(vg::Renderer& renderer) {
 
-    m_game->getRenderer().setBackgroundColor(f32v4(0.0f, 0.0f, 0.0f, 1.0f));
+    renderer.setBackgroundColor(f32v4(0.0f, 0.0f, 0.0f, 1.0f));
 
     // Scene
     m_scene.init(&m_game->getWindow());
     m_scene.initCamera();
     renderer.registerScene(&m_scene);
 
-    // :Post processes
+    // Post processes
     m_bloom.init(m_game->getWindow().getWidth(), m_game->getWindow().getHeight());
     m_bloom.setParams(20u, 150.0f);
     renderer.registerPostProcesses(&m_bloom);
@@ -60,5 +60,5 @@ void GameplayScreen::onRenderFrame(const vui::GameTime& gameTime) {
 }
 
 void GameplayScreen::update(const vui::GameTime& gameTime) {
-    
+    // Empty
 }

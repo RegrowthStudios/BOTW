@@ -38,3 +38,7 @@ void GameplayScene::dispose() {
     m_spriteBatch.reset();
     IScene::dispose();
 }
+
+void GameplayScene::initCamera() {
+    // TODO(Ben): Camera!
+}

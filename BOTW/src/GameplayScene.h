@@ -29,6 +29,8 @@ public:
 
     void init(const vui::GameWindow* window);
 
+    virtual void initCamera() override;
+
     virtual void load() override;
 
     virtual void render(const vui::GameTime& gameTime) override;
