@@ -50,14 +50,27 @@ void GameplayScreen::registerRendering(vg::Renderer& renderer) {
     renderer.registerScene(&m_scene);
 
     // Form
-    m_form.init("Matt's Mad Form", this, f32v4(350.0f, 350.0f, 500.0f, 500.0f));
+    m_form.init("Matt's Mad Form", this, f32v4(0.0f, 0.0f, m_game->getWindow().getWidth(), m_game->getWindow().getHeight()));
 
-    // Button
-    vui::Button* button = new vui::Button(&m_form, "Cray Button", f32v4(360.0f, 360.0f, 390.0f, 390.0f));
-    button->setBackColor(color4(255.0f, 0.0f, 0.0f));
-    button->setText("Hello");
-    button->enable();
-    m_form.addWidget(button);
+    // Button 1
+    vui::Button* button1 = new vui::Button(&m_form, "Cray Button", f32v4(10.0f, 10.0f, 390.0f, 390.0f));
+    button1->setBackColor(color4(1.0f, 0.0f, 0.0f));
+    button1->setText("Hello");
+    button1->enable();
+    button1->setDock(vorb::ui::DockStyle::LEFT);
+    m_form.addWidget(button1);
+
+
+    // Button 2
+    vui::Button* button2 = new vui::Button(&m_form, "Cray Button", f32v4(0.0f, 0.0f, 390.0f, 390.0f));
+    button2->setBackColor(color4(0.0f, 1.0f, 0.0f));
+    button2->setText("Hello");
+    button2->enable();
+    button2->setDock(vorb::ui::DockStyle::LEFT);
+    m_form.addWidget(button2);
+
+    // Enable form.
+    m_form.enable();
 
     // Post processes
     /*m_bloom.init(m_game->getWindow().getWidth(), m_game->getWindow().getHeight());
