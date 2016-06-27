@@ -33,3 +33,8 @@ bin/
 *.sdf
 *.suo
 *.opendb
+*.opensdf
+
+Debug/
+deps/
+ipch/
