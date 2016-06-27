@@ -3,6 +3,7 @@
 
 #include <Vorb/graphics/SpriteBatch.h>
 #include <Vorb/graphics/SpriteFont.h>
+#include <Vorb/graphics/Camera.h>
 
 GameplayScreen::GameplayScreen() {
     // Empty
@@ -44,15 +45,23 @@ void GameplayScreen::registerRendering(vg::Renderer& renderer) {
 
     renderer.setBackgroundColor(f32v4(0.0f, 0.0f, 0.0f, 1.0f));
 
-    // Scene
-    m_scene.init(&m_game->getWindow());
-    m_scene.initCamera();
-    renderer.registerScene(&m_scene);
+    // Get window handle
+    vui::GameWindow& window = m_game->getWindow();
 
-    // Post processes
-    m_bloom.init(m_game->getWindow().getWidth(), m_game->getWindow().getHeight());
-    m_bloom.setParams(20u, 150.0f);
-    renderer.registerPostProcess(&m_bloom);
+    { // Scene
+        m_scene.init(&window);
+        // Set up the camera
+        m_scene.initCamera(window.getAspectRatio());
+        m_scene.getCamera()->setOrientation(f32v3(1.0, 0.0, 0.0), f32v3(0.0, 1.0, 0.0));
+
+        renderer.registerScene(&m_scene);
+    }
+
+    { // Post processes
+        m_bloom.init(window.getWidth(), window.getHeight());
+        m_bloom.setParams(20u, 150.0f);
+        renderer.registerPostProcess(&m_bloom);
+    }
 }
 
 void GameplayScreen::onRenderFrame(const vui::GameTime& gameTime) {

@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "GameplayScene.h"
-#include <Vorb/ui/MainGame.h>
 #include <Vorb/graphics/SpriteBatch.h>
 #include <Vorb/ui/GameWindow.h>
+#include <Vorb/ui/MainGame.h>
 
 GameplayScene::GameplayScene() {
     // Empty
@@ -37,8 +37,4 @@ void GameplayScene::render(const vui::GameTime& gameTime) {
 void GameplayScene::dispose() {
     m_spriteBatch.reset();
     IScene::dispose();
-}
-
-void GameplayScene::initCamera() {
-    // TODO(Ben): Camera!
 }
