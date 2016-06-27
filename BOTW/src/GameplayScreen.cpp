@@ -52,7 +52,7 @@ void GameplayScreen::registerRendering(vg::Renderer& renderer) {
     // Post processes
     m_bloom.init(m_game->getWindow().getWidth(), m_game->getWindow().getHeight());
     m_bloom.setParams(20u, 150.0f);
-    renderer.registerPostProcesses(&m_bloom);
+    renderer.registerPostProcess(&m_bloom);
 }
 
 void GameplayScreen::onRenderFrame(const vui::GameTime& gameTime) {
