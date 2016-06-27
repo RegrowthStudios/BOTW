@@ -22,16 +22,16 @@ void GameplayScene::load() {
 }
 
 void GameplayScene::render(const vui::GameTime& gameTime) {
-    m_spriteBatch->begin();
-
-    // Debug quad
-    m_spriteBatch->draw(0, f32v2(300.0f, 300.0f), f32v2(200.0f), color4(255, 255, 255, 255));
-    m_spriteBatch->draw(0, f32v2(150.0f, 150.0f), f32v2(200.0f), color4(80, 80, 255, 255));
-
-    m_spriteBatch->end();
-    m_spriteBatch->render(f32v2(m_window->getViewportDims()));
-
-    printf("%lf\n", gameTime.elapsed);
+//    m_spriteBatch->begin();
+//
+//    // Debug quad
+//    m_spriteBatch->draw(0, f32v2(300.0f, 300.0f), f32v2(200.0f), color4(255, 255, 255, 255));
+//    m_spriteBatch->draw(0, f32v2(150.0f, 150.0f), f32v2(200.0f), color4(80, 80, 255, 255));
+//
+//    m_spriteBatch->end();
+//    m_spriteBatch->render(f32v2(m_window->getViewportDims()));
+//
+//    printf("%lf\n", gameTime.elapsed);
 }
 
 void GameplayScene::dispose() {
