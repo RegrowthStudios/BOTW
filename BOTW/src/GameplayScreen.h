@@ -15,6 +15,8 @@
 #ifndef GameplayScreen_h__
 #define GameplayScreen_h__
 
+#include <Vorb/ui/Button.h>
+#include <Vorb/ui/Form.h>
 #include <Vorb/ui/IGameScreen.h>
 #include <Vorb/VorbPreDecl.inl>
 #include <Vorb/graphics/PostProcess.h>
@@ -51,6 +53,7 @@ public:
 private:
     GameplayScene m_scene; ///< Rendering
     vg::PostProcessBloom m_bloom; ///< Bloom post process
+    vui::Form m_form; ///< UI Form
 };
 
 
