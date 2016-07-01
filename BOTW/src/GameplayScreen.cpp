@@ -3,6 +3,7 @@
 
 #include <Vorb/graphics/SpriteBatch.h>
 #include <Vorb/graphics/SpriteFont.h>
+#include <Vorb/graphics/ImageIO.h>
 
 GameplayScreen::GameplayScreen() {
     // Empty
@@ -48,55 +49,66 @@ void GameplayScreen::registerRendering(vg::Renderer& renderer) {
     m_scene.init(&m_game->getWindow());
     m_scene.initCamera();
     renderer.registerScene(&m_scene);
-
+    
     // Form
-    m_form.init("Matt's Mad Form", this, f32v4(0.0f, 0.0f, m_game->getWindow().getWidth(), m_game->getWindow().getHeight()));
+    m_form.init("Matt's Mad Form", this, &m_game->getWindow(), f32v4(0.0f, 0.0f, m_game->getWindow().getWidth() / 5, m_game->getWindow().getHeight()));
+    m_form.setClipping(false);
 
     // Button 1
     vui::Button* button1 = new vui::Button(&m_form, "Cray Button 1");
-    button1->setRawPosition(std::pair<f32v2, vui::UnitType>(f32v2(0.0f), vui::UnitType::PIXEL));
-    button1->setRawDimensions(std::pair<f32v2, vui::UnitType>(f32v2(0.1f), vui::UnitType::PERCENTAGE));
+    button1->setRawPosition({ 0.0f, 0.0f, { vui::UnitType::PIXEL, vui::UnitType::PIXEL } });
+    button1->setRawDimensions({ 400.0f, 0.1f, { vui::UnitType::PIXEL, vui::UnitType::PERCENTAGE } });
+
+    /*vg::ImageIO imageIO;
+    vg::ScopedBitmapResource res = vg::ImageIO().load("test.jpg", vg::ImageIOFormat::RGB_UI8);
+    VGTexture tex;
+    glGenTextures(1, &tex);
+    glBindTexture(GL_TEXTURE_2D, tex);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 400, 300, 0, GL_RGB, GL_RGB8UI, res.bytesUI8);
+    button1->setTexture(tex);*/
+
     button1->setBackColor(color4(1.0f, 0.0f, 0.0f));
-    button1->setClippingEnabled(false); // TODO(Matthew): Shouldn't have to disable clipping to see this button.
-    //m_form.addWidget(button1);
 
     // Button 2
     vui::Button* button2 = new vui::Button(&m_form, "Cray Button 2");
-    button2->setRawPosition(std::pair<f32v2, vui::UnitType>(f32v2(80.0f), vui::UnitType::PIXEL));
-    button2->setRawDimensions(std::pair<f32v2, vui::UnitType>(f32v2(120.0f), vui::UnitType::PIXEL));
+    button2->setRawPosition({ 80.0f, 80.0f, { vui::UnitType::PIXEL, vui::UnitType::PIXEL } });
+    button2->setRawDimensions({ 120.0f, 120.0f, { vui::UnitType::PIXEL, vui::UnitType::PIXEL } });
     button2->setBackColor(color4(0.0f, 0.0f, 1.0f));
-    button2->setClippingEnabled(false);
+    button2->setClipping(false);
 
-    //m_form.addWidget(button2);
-
-    // Button 3
+    //Button 3
     vui::Button* button3 = new vui::Button(button2, "Cray Button 3");
-    button3->setRawPosition(std::pair<f32v2, vui::UnitType>(f32v2(100.0f), vui::UnitType::PIXEL));
-    button3->setRawDimensions(std::pair<f32v2, vui::UnitType>(f32v2(120.0f), vui::UnitType::PIXEL));
+    button3->setRawPosition({ 100.0f, 100.0f, { vui::UnitType::PIXEL, vui::UnitType::PIXEL } });
+    button3->setRawDimensions({ 120.0f, 120.0f, { vui::UnitType::PIXEL, vui::UnitType::PIXEL } });
     button3->setBackColor(color4(0.0f, 1.0f, 0.0f));
     button3->setPositionType(vui::PositionType::RELATIVE);
-    button3->setClippingEnabled(false);
+    button3->setClipping(false);
+    //button3->setClipping(vui::ClippingOptions(true, false, false, false));
 
     // Button 4
     vui::Button* button4 = new vui::Button(button3, "Cray Button 4");
-    button4->setRawPosition(std::pair<f32v2, vui::UnitType>(f32v2(20.0f), vui::UnitType::PIXEL));
-    button4->setRawDimensions(std::pair<f32v2, vui::UnitType>(f32v2(160.0f), vui::UnitType::PIXEL));
+    button4->setRawPosition({ 20.0f, 20.0f, { vui::UnitType::PIXEL, vui::UnitType::PIXEL } });
+    button4->setRawDimensions({ 160.0f, 160.0f, { vui::UnitType::PIXEL, vui::UnitType::PIXEL } });
     button4->setBackColor(color4(0.0f, 1.0f, 1.0f));
-    button4->setClippingEnabled(false);
+    button4->setClipping(false);
+    //button4->setClipping(vui::ClippingOptions(false, true, false, false));
 
     // Button 5
     vui::Button* button5 = new vui::Button(button4, "Cray Button 5");
-    button5->setRawPosition(std::pair<f32v2, vui::UnitType>(f32v2(-20.0f), vui::UnitType::PIXEL));
-    button5->setRawDimensions(std::pair<f32v2, vui::UnitType>(f32v2(120.0f), vui::UnitType::PIXEL));
+    button5->setRawPosition({ -20.0f, -20.0f, { vui::UnitType::PIXEL, vui::UnitType::PIXEL } });
+    button5->setRawDimensions({ 1.0f, 1.0f, { vui::UnitType::PERCENTAGE, vui::UnitType::PERCENTAGE } });
     button5->setBackColor(color4(1.0f, 1.0f, 0.0f));
     button5->setPositionType(vui::PositionType::ABSOLUTE);
+    button5->setClipping(false);
 
     // Button 6
     vui::Button* button6 = new vui::Button(&m_form, "Cray Button 6");
-    button6->setRawPosition(std::pair<f32v2, vui::UnitType>(f32v2(380.0f), vui::UnitType::PIXEL));
-    button6->setRawDimensions(std::pair<f32v2, vui::UnitType>(f32v2(20.0f), vui::UnitType::PIXEL));
+    button6->setRawPosition({ 380.0f, 380.0f, { vui::UnitType::PIXEL, vui::UnitType::PIXEL } });
+    button6->setRawDimensions({ 20.0f, 20.0f, { vui::UnitType::PIXEL, vui::UnitType::PIXEL } });
     button6->setBackColor(color4(1.0f, 0.0f, 1.0f));
-    button6->setClippingEnabled(false); // TODO(Matthew): Shouldn't have to disable clipping to see this button.
+    //button6->setClipping(false);
+
+
 
     /*vui::Button* buttons[100];
     for (size_t i = 0; i < 100; ++i) {
