@@ -74,6 +74,7 @@ void GameplayScreen::registerRendering(vg::Renderer& renderer) {
     button2->setRawPosition({ 80.0f, 80.0f, { vui::UnitType::PIXEL, vui::UnitType::PIXEL } });
     button2->setRawDimensions({ 120.0f, 120.0f, { vui::UnitType::PIXEL, vui::UnitType::PIXEL } });
     button2->setBackColor(color4(0.0f, 0.0f, 1.0f));
+    button2->setZIndex(3);
     button2->setClipping(false);
 
     //Button 3
@@ -103,9 +104,17 @@ void GameplayScreen::registerRendering(vg::Renderer& renderer) {
 
     // Button 6
     vui::Button* button6 = new vui::Button(&m_form, "Cray Button 6");
-    button6->setRawPosition({ 380.0f, 380.0f, { vui::UnitType::PIXEL, vui::UnitType::PIXEL } });
+    button6->setRawPosition({ 220.0f, 220.0f, { vui::UnitType::PIXEL, vui::UnitType::PIXEL } });
     button6->setRawDimensions({ 20.0f, 20.0f, { vui::UnitType::PIXEL, vui::UnitType::PIXEL } });
     button6->setBackColor(color4(1.0f, 0.0f, 1.0f));
+    button6->setZIndex(5);
+
+    // Button 7
+    vui::Button* button7 = new vui::Button(&m_form, "Cray Button 6");
+    button7->setRawPosition({ 240.0f, 240.0f, { vui::UnitType::PIXEL, vui::UnitType::PIXEL } });
+    button7->setRawDimensions({ 20.0f, 20.0f, { vui::UnitType::PIXEL, vui::UnitType::PIXEL } });
+    button7->setBackColor(color4(1.0f, 0.0f, 1.0f));
+    //button6->setZIndex(6);
     //button6->setClipping(false);
 
 
