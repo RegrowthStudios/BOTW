@@ -51,73 +51,107 @@ void GameplayScreen::registerRendering(vg::Renderer& renderer) {
     renderer.registerScene(&m_scene);
     
     // Form
-    m_form.init("Matt's Mad Form", this, &m_game->getWindow(), f32v4(0.0f, 0.0f, m_game->getWindow().getWidth() / 5, m_game->getWindow().getHeight()));
+    m_form.init("Matt's Mad Form", this, &m_game->getWindow(), f32v4(0.0f, 0.0f, m_game->getWindow().getWidth(), m_game->getWindow().getHeight()));
     m_form.setClipping(false);
+
+    /// Docking Test
 
     // Button 1
     vui::Button* button1 = new vui::Button(&m_form, "Cray Button 1");
-    button1->setRawPosition({ 0.0f, 0.0f, { vui::UnitType::PIXEL, vui::UnitType::PIXEL } });
-    button1->setRawDimensions({ 400.0f, 0.1f, { vui::UnitType::PIXEL, vui::UnitType::PERCENTAGE } });
-
-    /*vg::ImageIO imageIO;
-    vg::ScopedBitmapResource res = vg::ImageIO().load("test.jpg", vg::ImageIOFormat::RGB_UI8);
-    VGTexture tex;
-    glGenTextures(1, &tex);
-    glBindTexture(GL_TEXTURE_2D, tex);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 400, 300, 0, GL_RGB, GL_RGB8UI, res.bytesUI8);
-    button1->setTexture(tex);*/
-
+    button1->setDockingOptions({ vui::DockingStyle::LEFT, { 0.2f, { vui::UnitType::FORM_WIDTH_PERC } } });
     button1->setBackColor(color4(1.0f, 0.0f, 0.0f));
 
     // Button 2
     vui::Button* button2 = new vui::Button(&m_form, "Cray Button 2");
-    button2->setRawPosition({ 80.0f, 80.0f, { vui::UnitType::PIXEL, vui::UnitType::PIXEL } });
-    button2->setRawDimensions({ 120.0f, 120.0f, { vui::UnitType::PIXEL, vui::UnitType::PIXEL } });
-    button2->setBackColor(color4(0.0f, 0.0f, 1.0f));
-    button2->setZIndex(3);
-    button2->setClipping(false);
+    button2->setDockingOptions({ vui::DockingStyle::TOP, { 0.2f, { vui::UnitType::FORM_HEIGHT_PERC } } });
+    button2->setBackColor(color4(0.0f, 1.0f, 0.0f));
 
-    //Button 3
-    vui::Button* button3 = new vui::Button(button2, "Cray Button 3");
-    button3->setRawPosition({ 100.0f, 100.0f, { vui::UnitType::PIXEL, vui::UnitType::PIXEL } });
-    button3->setRawDimensions({ 120.0f, 120.0f, { vui::UnitType::PIXEL, vui::UnitType::PIXEL } });
-    button3->setBackColor(color4(0.0f, 1.0f, 0.0f));
-    button3->setPositionType(vui::PositionType::RELATIVE);
-    button3->setClipping(false);
-    //button3->setClipping(vui::ClippingOptions(true, false, false, false));
+    // Button 3
+    vui::Button* button3 = new vui::Button(&m_form, "Cray Button 3");
+    button3->setDockingOptions({ vui::DockingStyle::RIGHT, { 0.35f, { vui::UnitType::FORM_WIDTH_PERC } } });
+    button3->setBackColor(color4(0.0f, 0.0f, 1.0f));
 
     // Button 4
-    vui::Button* button4 = new vui::Button(button3, "Cray Button 4");
-    button4->setRawPosition({ 20.0f, 20.0f, { vui::UnitType::PIXEL, vui::UnitType::PIXEL } });
-    button4->setRawDimensions({ 160.0f, 160.0f, { vui::UnitType::PIXEL, vui::UnitType::PIXEL } });
-    button4->setBackColor(color4(0.0f, 1.0f, 1.0f));
-    button4->setClipping(false);
-    //button4->setClipping(vui::ClippingOptions(false, true, false, false));
+    vui::Button* button4 = new vui::Button(&m_form, "Cray Button 4");
+    button4->setDockingOptions({ vui::DockingStyle::BOTTOM, { 0.4f, { vui::UnitType::FORM_HEIGHT_PERC } } });
+    button4->setBackColor(color4(1.0f, 0.0f, 1.0f));
 
     // Button 5
-    vui::Button* button5 = new vui::Button(button4, "Cray Button 5");
-    button5->setRawPosition({ -20.0f, -20.0f, { vui::UnitType::PIXEL, vui::UnitType::PIXEL } });
-    button5->setRawDimensions({ 1.0f, 1.0f, { vui::UnitType::PERCENTAGE, vui::UnitType::PERCENTAGE } });
+    vui::Button* button5 = new vui::Button(&m_form, "Cray Button 5");
+    button5->setDockingOptions({ vui::DockingStyle::LEFT, { 0.4f, { vui::UnitType::FORM_WIDTH_PERC } } });
     button5->setBackColor(color4(1.0f, 1.0f, 0.0f));
-    button5->setPositionType(vui::PositionType::ABSOLUTE);
-    button5->setClipping(false);
 
     // Button 6
-    vui::Button* button6 = new vui::Button(&m_form, "Cray Button 6");
-    button6->setRawPosition({ 220.0f, 220.0f, { vui::UnitType::PIXEL, vui::UnitType::PIXEL } });
-    button6->setRawDimensions({ 20.0f, 20.0f, { vui::UnitType::PIXEL, vui::UnitType::PIXEL } });
-    button6->setBackColor(color4(1.0f, 0.0f, 1.0f));
-    button6->setZIndex(5);
+    vui::Button* button6 = new vui::Button(&m_form, "Cray Button 5");
+    button6->setDockingOptions({ vui::DockingStyle::LEFT, { 0.05f, { vui::UnitType::FORM_WIDTH_PERC } } });
+    button6->setBackColor(color4(0.0f, 1.0f, 1.0f));
 
-    // Button 7
-    vui::Button* button7 = new vui::Button(&m_form, "Cray Button 6");
-    button7->setRawPosition({ 240.0f, 240.0f, { vui::UnitType::PIXEL, vui::UnitType::PIXEL } });
-    button7->setRawDimensions({ 20.0f, 20.0f, { vui::UnitType::PIXEL, vui::UnitType::PIXEL } });
-    button7->setBackColor(color4(1.0f, 0.0f, 1.0f));
-    //button6->setZIndex(6);
-    //button6->setClipping(false);
+    /// Relative Positioning/Sizing & Z-Index Test
 
+    //// Button 1
+    //vui::Button* button1 = new vui::Button(&m_form, "Cray Button 1");
+    //button1->setRawPosition({ 0.0f, 0.0f, { vui::UnitType::PIXEL, vui::UnitType::PIXEL } });
+    //button1->setRawDimensions({ 400.0f, 0.1f, { vui::UnitType::PIXEL, vui::UnitType::PERCENTAGE } });
 
+    ///*vg::ImageIO imageIO;
+    //vg::ScopedBitmapResource res = vg::ImageIO().load("test.jpg", vg::ImageIOFormat::RGB_UI8);
+    //VGTexture tex;
+    //glGenTextures(1, &tex);
+    //glBindTexture(GL_TEXTURE_2D, tex);
+    //glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 400, 300, 0, GL_RGB, GL_RGB8UI, res.bytesUI8);
+    //button1->setTexture(tex);*/
+
+    //button1->setBackColor(color4(1.0f, 0.0f, 0.0f));
+
+    //// Button 2
+    //vui::Button* button2 = new vui::Button(&m_form, "Cray Button 2");
+    //button2->setRawPosition({ 80.0f, 80.0f, { vui::UnitType::PIXEL, vui::UnitType::PIXEL } });
+    //button2->setRawDimensions({ 120.0f, 120.0f, { vui::UnitType::PIXEL, vui::UnitType::PIXEL } });
+    //button2->setBackColor(color4(0.0f, 0.0f, 1.0f));
+    //button2->setZIndex(3);
+    //button2->setClipping(false);
+
+    ////Button 3
+    //vui::Button* button3 = new vui::Button(button2, "Cray Button 3");
+    //button3->setRawPosition({ 100.0f, 100.0f, { vui::UnitType::PIXEL, vui::UnitType::PIXEL } });
+    //button3->setRawDimensions({ 120.0f, 120.0f, { vui::UnitType::PIXEL, vui::UnitType::PIXEL } });
+    //button3->setBackColor(color4(0.0f, 1.0f, 0.0f));
+    //button3->setPositionType(vui::PositionType::RELATIVE);
+    //button3->setClipping(false);
+    ////button3->setClipping(vui::ClippingOptions(true, false, false, false));
+
+    //// Button 4
+    //vui::Button* button4 = new vui::Button(button3, "Cray Button 4");
+    //button4->setRawPosition({ 20.0f, 20.0f, { vui::UnitType::PIXEL, vui::UnitType::PIXEL } });
+    //button4->setRawDimensions({ 160.0f, 160.0f, { vui::UnitType::PIXEL, vui::UnitType::PIXEL } });
+    //button4->setBackColor(color4(0.0f, 1.0f, 1.0f));
+    //button4->setClipping(false);
+    ////button4->setClipping(vui::ClippingOptions(false, true, false, false));
+
+    //// Button 5
+    //vui::Button* button5 = new vui::Button(button4, "Cray Button 5");
+    //button5->setRawPosition({ -20.0f, -20.0f, { vui::UnitType::PIXEL, vui::UnitType::PIXEL } });
+    //button5->setRawDimensions({ 1.0f, 1.0f, { vui::UnitType::PERCENTAGE, vui::UnitType::PERCENTAGE } });
+    //button5->setBackColor(color4(1.0f, 1.0f, 0.0f));
+    //button5->setPositionType(vui::PositionType::ABSOLUTE);
+    //button5->setClipping(false);
+
+    //// Button 6
+    //vui::Button* button6 = new vui::Button(&m_form, "Cray Button 6");
+    //button6->setRawPosition({ 220.0f, 220.0f, { vui::UnitType::PIXEL, vui::UnitType::PIXEL } });
+    //button6->setRawDimensions({ 20.0f, 20.0f, { vui::UnitType::PIXEL, vui::UnitType::PIXEL } });
+    //button6->setBackColor(color4(1.0f, 0.0f, 1.0f));
+    //button6->setZIndex(5);
+
+    //// Button 7
+    //vui::Button* button7 = new vui::Button(&m_form, "Cray Button 6");
+    //button7->setRawPosition({ 240.0f, 240.0f, { vui::UnitType::PIXEL, vui::UnitType::PIXEL } });
+    //button7->setRawDimensions({ 20.0f, 20.0f, { vui::UnitType::PIXEL, vui::UnitType::PIXEL } });
+    //button7->setBackColor(color4(1.0f, 0.0f, 1.0f));
+    ////button6->setZIndex(6);
+    ////button6->setClipping(false);
+
+    /// Relative Sizing Test
 
     /*vui::Button* buttons[100];
     for (size_t i = 0; i < 100; ++i) {
