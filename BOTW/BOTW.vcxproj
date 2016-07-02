@@ -56,8 +56,16 @@
     </Link>
     <PreBuildEvent>
       <Command>cd $(SolutionDir)
-$(SolutionDir)VorbCopy.bat</Command>
+$(SolutionDir)VorbCopy.bat
+EXIT 0</Command>
     </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>robocopy /XO /E "$(SolutionDir)deps\dll\$(PlatformName)\$(Configuration)\ " "$(OutDir) " * /XD ".git"
+EXIT 0</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Copying DLL deps to output directory</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -72,6 +80,18 @@ $(SolutionDir)VorbCopy.bat</Command>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <PreBuildEvent>
+      <Command>cd $(SolutionDir)
+$(SolutionDir)VorbCopy.bat
+EXIT 0</Command>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>robocopy /XO /E "$(SolutionDir)deps\dll\$(PlatformName)\$(Configuration)\ " "$(OutDir) " * /XD ".git"
+EXIT 0</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Copying DLL deps to output directory</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\App.cpp" />
@@ -80,6 +100,9 @@ $(SolutionDir)VorbCopy.bat</Command>
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GameContent.h" />
+    <ClInclude Include="GameEngine.h" />
+    <ClInclude Include="SessionLoadInfo.h" />
     <ClInclude Include="src\App.h" />
     <ClInclude Include="src\GameplayScene.h" />
     <ClInclude Include="src\GameplayScreen.h" />
