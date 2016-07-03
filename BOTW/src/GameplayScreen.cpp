@@ -30,7 +30,26 @@ void GameplayScreen::destroy(const vui::GameTime& gameTime) {
 }
 
 void GameplayScreen::onEntry(const vui::GameTime& gameTime) {
-    // Empty
+    { // Set up test block stuff
+        Block blockA;
+        blockA.SID = "Air";
+        blockA.color = color4(0, 0, 0, 0);
+        m_blockPack.append(blockA);
+
+        Block blockB;
+        blockB.SID = "Red Block";
+        blockB.color = color4(255, 0, 0, 255);
+        m_blockPack.append(blockB);
+
+        Block blockC;
+        blockC.SID = "Blue Block";
+        blockC.color = color4(0, 0, 255, 255);
+        m_blockPack.append(blockC);
+    }
+
+    // Set up red test chunk
+    // Only use block data. Don't need tertiary.
+    m_testChunk.blockData.init(vvox::VoxelStorageState::INTERVAL_TREE, m_blockPack["Red Block"].ID);
 }
 
 void GameplayScreen::onExit(const vui::GameTime& gameTime) {

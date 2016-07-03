@@ -15,9 +15,9 @@
 #ifndef GameplayScene_h__
 #define GameplayScene_h__
 
-#include <vorb/graphics/Scene.h>
-#include <vorb/graphics/gtypes.h>
-#include <vorb/VorbPreDecl.inl>
+#include <Vorb/graphics/Scene.h>
+#include <Vorb/graphics/gtypes.h>
+#include <Vorb/VorbPreDecl.inl>
 
 DECL_VUI(class GameWindow);
 DECL_VG(class SpriteBatch);
@@ -36,6 +36,7 @@ public:
     virtual void dispose() override;
 
 private:
+
     const vui::GameWindow* m_window;
     std::unique_ptr<vg::SpriteBatch> m_spriteBatch = nullptr;
 };

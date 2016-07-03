@@ -18,12 +18,20 @@
 #include <Vorb/ui/IGameScreen.h>
 #include <Vorb/VorbPreDecl.inl>
 #include <Vorb/graphics/PostProcess.h>
-#include "GameplayScene.h"
+#include <Vorb/voxel/BlockPack.h>
+#include <Vorb/voxel/Chunk.h>
 
+#include "GameplayScene.h"
 
 DECL_VG(class SpriteBatch)
 DECL_VG(class SpriteFont)
 
+// Custom block implementation
+typedef ui16 BlockID;
+class Block : public vvox::Block<BlockID> {
+public:
+    color4 color;
+};
 
 class GameplayScreen : public vui::IGameScreen {
 public:
@@ -49,6 +57,9 @@ public:
     virtual void update(const vui::GameTime& gameTime) override;
 
 private:
+    vvox::Chunk<ui16, ui16> m_testChunk; ///< Temporary
+    vvox::BlockPack<Block, ui16, BlockID> m_blockPack; ///< All blocks
+
     GameplayScene m_scene; ///< Rendering
     vg::PostProcessBloom m_bloom; ///< Bloom post process
 };
