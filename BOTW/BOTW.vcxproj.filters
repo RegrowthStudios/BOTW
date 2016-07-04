@@ -9,6 +9,8 @@
       <Filter>Screens</Filter>
     </ClCompile>
     <ClCompile Include="src\GameplayScene.cpp" />
+    <ClCompile Include="src\ChunkMesher.cpp" />
+    <ClCompile Include="src\ShaderLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\stdafx.h" />
@@ -19,6 +21,9 @@
       <Filter>Screens</Filter>
     </ClInclude>
     <ClInclude Include="src\GameplayScene.h" />
+    <ClInclude Include="src\ChunkMesher.h" />
+    <ClInclude Include="src\VoxelTypes.h" />
+    <ClInclude Include="src\ShaderLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Screens">

@@ -75,15 +75,20 @@ $(SolutionDir)VorbCopy.bat</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\App.cpp" />
+    <ClCompile Include="src\ChunkMesher.cpp" />
     <ClCompile Include="src\GameplayScene.cpp" />
     <ClCompile Include="src\GameplayScreen.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\ShaderLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\App.h" />
+    <ClInclude Include="src\ChunkMesher.h" />
     <ClInclude Include="src\GameplayScene.h" />
     <ClInclude Include="src\GameplayScreen.h" />
+    <ClInclude Include="src\ShaderLoader.h" />
     <ClInclude Include="src\stdafx.h" />
+    <ClInclude Include="src\VoxelTypes.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

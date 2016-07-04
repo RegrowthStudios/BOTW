@@ -5,7 +5,7 @@
 #include <Vorb/graphics/SpriteFont.h>
 #include <Vorb/graphics/Camera.h>
 
-GameplayScreen::GameplayScreen() {
+GameplayScreen::GameplayScreen() : m_idRecycler(10) {
     // Empty
 }
 
@@ -49,7 +49,13 @@ void GameplayScreen::onEntry(const vui::GameTime& gameTime) {
 
     // Set up red test chunk
     // Only use block data. Don't need tertiary.
-    m_testChunk.blockData.init(vvox::VoxelStorageState::INTERVAL_TREE, m_blockPack["Red Block"].ID);
+    m_testChunk.blockData.setArrayRecycler(&m_idRecycler);
+    m_testChunk.blockData.init(vvox::VoxelStorageState::FLAT_ARRAY, m_blockPack["Red Block"].ID);
+
+    // Sprinle in some air blocks
+    m_testChunk.blockData.set(4, 0);
+    m_testChunk.blockData.set(100, 0);
+    m_testChunk.blockData.set(3000, 0);
 }
 
 void GameplayScreen::onExit(const vui::GameTime& gameTime) {
@@ -68,7 +74,7 @@ void GameplayScreen::registerRendering(vg::Renderer& renderer) {
     vui::GameWindow& window = m_game->getWindow();
 
     { // Scene
-        m_scene.init(&window);
+        m_scene.init(&window, this);
         // Set up the camera
         m_scene.initCamera(window.getAspectRatio());
         m_scene.getCamera()->setOrientation(f32v3(1.0, 0.0, 0.0), f32v3(0.0, 1.0, 0.0));
