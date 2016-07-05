@@ -52,10 +52,14 @@ void GameplayScreen::onEntry(const vui::GameTime& gameTime) {
     m_testChunk.blockData.setArrayRecycler(&m_idRecycler);
     m_testChunk.blockData.init(vvox::VoxelStorageState::FLAT_ARRAY, m_blockPack["Red Block"].ID);
 
-    // Sprinle in some air blocks
+    // Sprinkle in some air blocks
     m_testChunk.blockData.set(4, 0);
     m_testChunk.blockData.set(100, 0);
     m_testChunk.blockData.set(3000, 0);
+
+    { // Set up inputs
+        // TODO(Ben): Inputmapper
+    }
 }
 
 void GameplayScreen::onExit(const vui::GameTime& gameTime) {

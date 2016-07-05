@@ -26,10 +26,17 @@ void ChunkMesher::result(const vvox::meshalg::VoxelQuad& quad, BlockID id) {
     int i = vertices.size();
     vertices.resize(vertices.size() + 4);
 
-    vertices[i    ].position = VOXEL_POSITIONS[(int)quad.direction][0];
-    vertices[i + 1].position = VOXEL_POSITIONS[(int)quad.direction][1];
-    vertices[i + 2].position = VOXEL_POSITIONS[(int)quad.direction][2];
-    vertices[i + 3].position = VOXEL_POSITIONS[(int)quad.direction][3];
+    ui8 face = static_cast<ui8>(quad.direction);
+
+    vertices[i    ].position     = VOXEL_POSITIONS[face][0];
+    vertices[i + 1].position = VOXEL_POSITIONS[face][1];
+    vertices[i + 2].position = VOXEL_POSITIONS[face][2];
+    vertices[i + 3].position = VOXEL_POSITIONS[face][3];
+    // Set up face for normals
+    vertices[i    ].face = face;
+    vertices[i + 1].face = face;
+    vertices[i + 2].face = face;
+    vertices[i + 3].face = face;
 
     const color4& colorRGBA = m_blockPack->operator[](id).color;
     color3 color(colorRGBA.r, colorRGBA.g, colorRGBA.b);

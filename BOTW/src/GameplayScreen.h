@@ -60,5 +60,4 @@ private:
     vg::PostProcessBloom m_bloom; ///< Bloom post process
 };
 
-
 #endif // GameplayScreen_h__

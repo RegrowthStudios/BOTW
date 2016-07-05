@@ -27,11 +27,13 @@ public:
     /// Creates a program using code loaded from files, and does error checking
     /// Does not register with global cache
     static CALLER_DELETE vg::GLProgram createProgramFromFile(const vio::Path& vertPath, const vio::Path& fragPath,
+                                                             vg::ShaderLanguageVersion version = vg::DEFAULT_SHADING_LANGUAGE_VERSION,
                                                              vio::IOManager* iom = nullptr, cString defines = nullptr);
 
     /// Creates a program using passed code, and does error checking
     /// Does not register with global cache
     static CALLER_DELETE vg::GLProgram createProgram(const cString displayName, const cString vertSrc, const cString fragSrc,
+                                                     vg::ShaderLanguageVersion version = vg::DEFAULT_SHADING_LANGUAGE_VERSION,
                                                      vio::IOManager* iom = nullptr, cString defines = nullptr);
 };
 

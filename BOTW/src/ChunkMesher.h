@@ -18,8 +18,6 @@
 #include <Vorb/voxel/VoxelMesherCulled.h>
 #include "VoxelTypes.h"
 
-
-
 class ChunkMesher {
 public:
     void init(const BlockPack* blockPack);
@@ -45,7 +43,7 @@ public:
             };
             UNIONIZE(ui8v3 position);
         };
-        ui8 padding1;
+        ui8 face; ///< Used to look up normal in vertex shader
         UNIONIZE(color3 color);
         ui8 padding2;
     };
