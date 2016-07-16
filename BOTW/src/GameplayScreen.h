@@ -58,6 +58,7 @@ private:
 
     GameplayScene m_scene; ///< Rendering
     vg::PostProcessBloom m_bloom; ///< Bloom post process
+    vg::PostProcessPassthrough m_debugPassthrough; ///< For rendering whatever
 };
 
 #endif // GameplayScreen_h__
