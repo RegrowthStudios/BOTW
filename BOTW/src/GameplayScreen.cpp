@@ -66,26 +66,13 @@ void GameplayScreen::onEntry(const vui::GameTime& gameTime) {
         });
 
 #define ROTATE_SPEED 0.05f
-
-        m_inputMapper.get(m_inputMapper.createInput("Left", VKEY_A)).downEvent.addFunctor(
-            [&](Sender s, ui32 a) -> void {
-            m_scene.getCamera()->rotate(-ROTATE_SPEED, 0.0f);
-        });
-
-        m_inputMapper.get(m_inputMapper.createInput("Right", VKEY_D)).downEvent.addFunctor(
-            [&](Sender s, ui32 a) -> void {
-            m_scene.getCamera()->rotate(ROTATE_SPEED, 0.0f);
-        });
-
-        m_inputMapper.get(m_inputMapper.createInput("Front", VKEY_W)).downEvent.addFunctor(
-            [&](Sender s, ui32 a) -> void {
-            m_scene.getCamera()->rotate(0.0f, ROTATE_SPEED);
-        });
-
-        m_inputMapper.get(m_inputMapper.createInput("Back", VKEY_S)).downEvent.addFunctor(
-            [&](Sender s, ui32 a) -> void {
-            m_scene.getCamera()->rotate(0.0f, -ROTATE_SPEED);
-        });
+        
+        m_inputMapper.get(m_inputMapper.createInput("Left", VKEY_A));
+        m_inputMapper.get(m_inputMapper.createInput("Right", VKEY_D));
+        m_inputMapper.get(m_inputMapper.createInput("Front", VKEY_W));
+        m_inputMapper.get(m_inputMapper.createInput("Back", VKEY_S));
+        m_inputMapper.get(m_inputMapper.createInput("Up", VKEY_SPACE));
+        m_inputMapper.get(m_inputMapper.createInput("Down", VKEY_LCTRL));
 
         m_inputMapper.startInput();
     }
@@ -148,5 +135,26 @@ void GameplayScreen::onRenderFrame(const vui::GameTime& gameTime) {
 }
 
 void GameplayScreen::update(const vui::GameTime& gameTime) {
-    // Empty
+    { // Camera movement
+        const f32 MOVE_SPEED = 0.05f;
+
+        if (m_inputMapper.getInputState(m_inputMapper.getInputID("Left"))) {
+            m_scene.getCamera()->offsetPosition(MOVE_SPEED * m_scene.getCamera()->getLeft());
+        }
+        if (m_inputMapper.getInputState(m_inputMapper.getInputID("Right"))) {
+            m_scene.getCamera()->offsetPosition(-MOVE_SPEED * m_scene.getCamera()->getLeft());
+        }
+        if (m_inputMapper.getInputState(m_inputMapper.getInputID("Front"))) {
+            m_scene.getCamera()->offsetPosition(MOVE_SPEED * m_scene.getCamera()->getDirection());
+        }
+        if (m_inputMapper.getInputState(m_inputMapper.getInputID("Back"))) {
+            m_scene.getCamera()->offsetPosition(-MOVE_SPEED * m_scene.getCamera()->getDirection());
+        }
+        if (m_inputMapper.getInputState(m_inputMapper.getInputID("Up"))) {
+              m_scene.getCamera()->offsetPosition(MOVE_SPEED * m_scene.getCamera()->getUp());
+        }
+        if (m_inputMapper.getInputState(m_inputMapper.getInputID("Down"))) {
+            m_scene.getCamera()->offsetPosition(-MOVE_SPEED * m_scene.getCamera()->getUp());
+        }
+    }
 }
