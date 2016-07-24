@@ -5,6 +5,7 @@
 #include <Vorb/graphics/SpriteFont.h>
 #include <Vorb/graphics/Camera.h>
 #include <Vorb/graphics/GBuffer.h>
+#include <Vorb/ui/InputDispatcher.h>
 #include "App.h"
 
 GameplayScreen::GameplayScreen() : m_idRecycler(10) {
@@ -49,18 +50,44 @@ void GameplayScreen::onEntry(const vui::GameTime& gameTime) {
         m_blockPack.append(blockC);
     }
 
-    // Set up red test chunk
+    // Set up empty test chunk
     // Only use block data. Don't need tertiary.
     m_testChunk.blockData.setArrayRecycler(&m_idRecycler);
     m_testChunk.blockData.init(vvox::VoxelStorageState::FLAT_ARRAY, m_blockPack["Bright Block"].ID);
 
-    // Sprinkle in some air blocks
-    m_testChunk.blockData.set(4, 0);
-    m_testChunk.blockData.set(100, 0);
-    m_testChunk.blockData.set(3000, 0);
+    // Sprinkle in some blocks
+    m_testChunk.blockData.set(m_testChunk.width * m_testChunk.width + 4, 0);
+   
 
     { // Set up inputs
-        // TODO(Ben): Inputmapper
+        m_inputMapper.get(m_inputMapper.createInput("Escape", VKEY_ESCAPE)).downEvent.addFunctor(
+            [&](Sender s, ui32 a) -> void {
+            exit(1);
+        });
+
+#define ROTATE_SPEED 0.05f
+
+        m_inputMapper.get(m_inputMapper.createInput("Left", VKEY_A)).downEvent.addFunctor(
+            [&](Sender s, ui32 a) -> void {
+            m_scene.getCamera()->rotate(-ROTATE_SPEED, 0.0f);
+        });
+
+        m_inputMapper.get(m_inputMapper.createInput("Right", VKEY_D)).downEvent.addFunctor(
+            [&](Sender s, ui32 a) -> void {
+            m_scene.getCamera()->rotate(ROTATE_SPEED, 0.0f);
+        });
+
+        m_inputMapper.get(m_inputMapper.createInput("Front", VKEY_W)).downEvent.addFunctor(
+            [&](Sender s, ui32 a) -> void {
+            m_scene.getCamera()->rotate(0.0f, ROTATE_SPEED);
+        });
+
+        m_inputMapper.get(m_inputMapper.createInput("Back", VKEY_S)).downEvent.addFunctor(
+            [&](Sender s, ui32 a) -> void {
+            m_scene.getCamera()->rotate(0.0f, -ROTATE_SPEED);
+        });
+
+        m_inputMapper.startInput();
     }
 }
 
@@ -70,6 +97,7 @@ void GameplayScreen::onExit(const vui::GameTime& gameTime) {
     m_scene.dispose();
     m_bloom.unregister();
     m_bloom.dispose();
+    m_inputMapper.stopInput();
 }
 
 void GameplayScreen::registerRendering(vg::Renderer& renderer) {
@@ -99,16 +127,19 @@ void GameplayScreen::registerRendering(vg::Renderer& renderer) {
         m_bloom.setParams(20u, 150.0f);
         renderer.registerPostProcess(&m_bloom);
         
-        m_debugPassthrough.init(renderTarget.getTextureID());
+        m_ssao.init(window.getWidth(), window.getHeight(),
+                    renderer.getGBuffer()->getGeometryTexture((ui32)vg::GBUFFER_TEXTURE_UNITS::COLOR),
+                    renderer.getGBuffer()->getDepthTexture(),
+                    renderer.getGBuffer()->getGeometryTexture((ui32)vg::GBUFFER_TEXTURE_UNITS::NORMAL),
+                    m_scene.getCamera());
+
+      //  renderer.registerPostProcess(&m_ssao);
+
+        // Visualize the normal buffer.
+        m_debugPassthrough.init(renderer.getGBuffer()->getGeometryTexture((ui32)vg::GBUFFER_TEXTURE_UNITS::NORMAL));
         renderer.registerPostProcess(&m_debugPassthrough);
 
         // TODO(Ben): Live swapped post processes.
-
-        // GBuffer > Bound textures 0-2
-        // A post process will never write to an FBO from a previous post process unless sharing, i.e. 0
-        //    Always restore 0 at end of stage.
-        // Can have separate render FBOs.
-        // The next stage automatically binds up FBO connection with the current stage.
     }
 }
 

@@ -18,6 +18,7 @@
 #include <Vorb/ui/IGameScreen.h>
 #include <Vorb/VorbPreDecl.inl>
 #include <Vorb/graphics/PostProcess.h>
+#include <Vorb/ui/InputMapper.h>
 
 #include "GameplayScene.h"
 #include "VoxelTypes.h"
@@ -56,9 +57,12 @@ private:
     vcore::FixedSizeArrayRecycler<CHUNK_WIDTH * CHUNK_WIDTH * CHUNK_WIDTH, BlockID> m_idRecycler;
     BlockPack m_blockPack; ///< All blocks
 
+    vui::InputMapper m_inputMapper;
+
     GameplayScene m_scene; ///< Rendering
     vg::PostProcessBloom m_bloom; ///< Bloom post process
     vg::PostProcessPassthrough m_debugPassthrough; ///< For rendering whatever
+    vg::PostProcessSSAO m_ssao;
 };
 
 #endif // GameplayScreen_h__
