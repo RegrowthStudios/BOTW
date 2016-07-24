@@ -60,12 +60,8 @@ void GameplayScreen::onEntry(const vui::GameTime& gameTime) {
    
 
     { // Set up inputs
-        m_inputMapper.get(m_inputMapper.createInput("Escape", VKEY_ESCAPE)).downEvent.addFunctor(
-            [&](Sender s, ui32 a) -> void {
-            exit(1);
-        });
 
-#define ROTATE_SPEED 0.05f
+        static const float ROTATE_SPEED = 0.05f;
         
         m_inputMapper.get(m_inputMapper.createInput("Left", VKEY_A));
         m_inputMapper.get(m_inputMapper.createInput("Right", VKEY_D));
@@ -73,6 +69,21 @@ void GameplayScreen::onEntry(const vui::GameTime& gameTime) {
         m_inputMapper.get(m_inputMapper.createInput("Back", VKEY_S));
         m_inputMapper.get(m_inputMapper.createInput("Up", VKEY_SPACE));
         m_inputMapper.get(m_inputMapper.createInput("Down", VKEY_LCTRL));
+        m_inputMapper.get(m_inputMapper.createInput("Roll Left", VKEY_Q));
+        m_inputMapper.get(m_inputMapper.createInput("Roll Right", VKEY_E));
+        m_inputMapper.get(m_inputMapper.createInput("Left Click", VKEY_MOUSE_LEFT)).downEvent.addFunctor([&](Sender, ui32) {
+            if (!m_isMouseGrabbed) {
+                m_isMouseGrabbed = true;
+                m_game->getWindow().setRelativeMouseMode(true);
+            }
+        });
+        m_inputMapper.get(m_inputMapper.createInput("Escape", VKEY_ESCAPE)).downEvent.addFunctor([&](Sender, ui32) {
+            if (m_isMouseGrabbed) {
+                m_isMouseGrabbed = false;
+                m_game->getWindow().setRelativeMouseMode(false);
+            }
+        });
+        vui::InputDispatcher::mouse.onMotion += makeDelegate(*this, &GameplayScreen::onMouseMotion);
 
         m_inputMapper.startInput();
     }
@@ -137,6 +148,7 @@ void GameplayScreen::onRenderFrame(const vui::GameTime& gameTime) {
 void GameplayScreen::update(const vui::GameTime& gameTime) {
     { // Camera movement
         const f32 MOVE_SPEED = 0.05f;
+        const f32 ROLL_SPEED = 0.01f;
 
         if (m_inputMapper.getInputState(m_inputMapper.getInputID("Left"))) {
             m_scene.getCamera()->offsetPosition(MOVE_SPEED * m_scene.getCamera()->getLeft());
@@ -156,5 +168,18 @@ void GameplayScreen::update(const vui::GameTime& gameTime) {
         if (m_inputMapper.getInputState(m_inputMapper.getInputID("Down"))) {
             m_scene.getCamera()->offsetPosition(-MOVE_SPEED * m_scene.getCamera()->getUp());
         }
+        if (m_inputMapper.getInputState(m_inputMapper.getInputID("Roll Left"))) {
+            m_scene.getCamera()->roll(-ROLL_SPEED);
+        }
+        if (m_inputMapper.getInputState(m_inputMapper.getInputID("Roll Right"))) {
+            m_scene.getCamera()->roll(ROLL_SPEED);
+        }
+    }
+}
+
+void GameplayScreen::onMouseMotion(Sender s, const vui::MouseMotionEvent& e) {
+    const float ROTATE_SPEED = 0.001f;
+    if (m_isMouseGrabbed) {
+        m_scene.getCamera()->rotate(-e.dx * ROTATE_SPEED, e.dy * ROTATE_SPEED);
     }
 }

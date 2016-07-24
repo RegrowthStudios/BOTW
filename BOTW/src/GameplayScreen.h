@@ -53,6 +53,9 @@ public:
     virtual void update(const vui::GameTime& gameTime) override;
 
 private:
+    void onMouseMotion(Sender s, const vui::MouseMotionEvent& e);
+
+
     Chunk m_testChunk; ///< Temporary
     vcore::FixedSizeArrayRecycler<CHUNK_WIDTH * CHUNK_WIDTH * CHUNK_WIDTH, BlockID> m_idRecycler;
     BlockPack m_blockPack; ///< All blocks
@@ -63,6 +66,8 @@ private:
     vg::PostProcessBloom m_bloom; ///< Bloom post process
     vg::PostProcessPassthrough m_debugPassthrough; ///< For rendering whatever
     vg::PostProcessSSAO m_ssao;
+
+    bool m_isMouseGrabbed = false;
 };
 
 #endif // GameplayScreen_h__
