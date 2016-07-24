@@ -84,7 +84,7 @@ void GameplayScene::init(const vui::GameWindow* window, const GameplayScreen* sc
 void GameplayScene::load() {
     // Look down diagonally-ish
     m_camera->setOrientation(f32v3(0.8f, 0.0f, 0.2f), f32v3(1.0f, 1.0f, 1.0f));
-//    m_camera->setFieldOfView(90.0f);
+    m_camera->setFieldOfView(90.0f);
 
     m_spriteBatch = std::make_unique<vg::SpriteBatch>();
     m_spriteBatch->init();
@@ -148,7 +148,6 @@ void GameplayScene::render(const vui::GameTime& gameTime) {
     glBindVertexArray(0);
 
     m_program.unuse();
-
 
     m_spriteBatch->begin();
 

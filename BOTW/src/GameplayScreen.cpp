@@ -180,6 +180,7 @@ void GameplayScreen::update(const vui::GameTime& gameTime) {
 void GameplayScreen::onMouseMotion(Sender s, const vui::MouseMotionEvent& e) {
     const float ROTATE_SPEED = 0.001f;
     if (m_isMouseGrabbed) {
-        m_scene.getCamera()->rotate(-e.dx * ROTATE_SPEED, e.dy * ROTATE_SPEED);
+        m_scene.getCamera()->rotate(-e.dx * ROTATE_SPEED,
+                                    e.dy * ROTATE_SPEED * m_scene.getCamera()->getAspectRatio());
     }
 }
