@@ -58,13 +58,13 @@ in vec3 fNormal;
 
 // Output
 layout(location = 0) out vec4 pColor;
-layout(location = 1) out vec3 pPosition;
-layout(location = 2) out vec3 pNormal;
+layout(location = 1) out vec4 pPosition;
+layout(location = 2) out vec4 pNormal;
 
 void main() {
-  pPosition = fPosition;
+  pPosition = vec4(fPosition, 1.0);
   pColor = fColor;
-  pNormal = vec3(1.0, 0.0, 0.0); // *TEMP Force alpha to red
+  pNormal = vec4(fNormal, 1.0);
 })";
 }
 

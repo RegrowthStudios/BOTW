@@ -131,11 +131,11 @@ void GameplayScreen::registerRendering(vg::Renderer& renderer) {
                     renderer.getGBuffer()->getGeometryTexture((ui32)vg::GBUFFER_TEXTURE_UNITS::NORMAL),
                     m_scene.getCamera());
 
-      //  renderer.registerPostProcess(&m_ssao);
+        renderer.registerPostProcess(&m_ssao);
 
         // Visualize the normal buffer.
-        m_debugPassthrough.init(renderer.getGBuffer()->getGeometryTexture((ui32)vg::GBUFFER_TEXTURE_UNITS::NORMAL));
-        renderer.registerPostProcess(&m_debugPassthrough);
+      //  m_debugPassthrough.init(renderer.getGBuffer()->getGeometryTexture((ui32)vg::GBUFFER_TEXTURE_UNITS::NORMAL));
+      //  renderer.registerPostProcess(&m_debugPassthrough);
 
         // TODO(Ben): Live swapped post processes.
     }
