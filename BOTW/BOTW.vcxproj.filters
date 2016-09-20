@@ -24,10 +24,22 @@
     <ClInclude Include="src\ChunkMesher.h" />
     <ClInclude Include="src\VoxelTypes.h" />
     <ClInclude Include="src\ShaderLoader.h" />
+    <ClInclude Include="GameEngine.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="SessionLoadInfo.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="GameContent.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Screens">
       <UniqueIdentifier>{0a62fcd5-6fba-4716-9d4a-96d4923f544c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{5f5480ec-fa7e-4dc8-9182-0a3a79b483ca}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
