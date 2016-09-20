@@ -35,6 +35,8 @@ bin/
 *.opendb
 *.opensdf
 
-Debug/
 deps/
 ipch/
+*.vcxproj.user
+*.ilk
+*.VC.db
