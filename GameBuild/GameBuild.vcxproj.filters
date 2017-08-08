@@ -2,8 +2,21 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\GameWindow.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\stdafx.h" />
+    <ClInclude Include="src\Global.h" />
+    <ClInclude Include="src\GameWindow.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utils.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="System">
+      <UniqueIdentifier>{99563d87-7ca4-48c9-92c9-0f6d4552319c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
