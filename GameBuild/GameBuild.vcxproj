@@ -165,12 +165,14 @@
   <ItemGroup>
     <ClCompile Include="src\GameWindow.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\WindowProc.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameWindow.h" />
     <ClInclude Include="src\Global.h" />
     <ClInclude Include="src\stdafx.h" />
     <ClInclude Include="src\Utils.h" />
+    <ClInclude Include="src\WindowProc.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

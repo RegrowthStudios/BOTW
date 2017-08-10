@@ -5,6 +5,9 @@
     <ClCompile Include="src\GameWindow.cpp">
       <Filter>System</Filter>
     </ClCompile>
+    <ClCompile Include="src\WindowProc.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\stdafx.h" />
@@ -13,6 +16,9 @@
       <Filter>System</Filter>
     </ClInclude>
     <ClInclude Include="src\Utils.h" />
+    <ClInclude Include="src\WindowProc.h">
+      <Filter>System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="System">
