@@ -8,6 +8,9 @@
     <ClCompile Include="src\WindowProc.cpp">
       <Filter>System</Filter>
     </ClCompile>
+    <ClCompile Include="src\RenderSystem.cpp">
+      <Filter>System\D3D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\stdafx.h" />
@@ -19,10 +22,19 @@
     <ClInclude Include="src\WindowProc.h">
       <Filter>System</Filter>
     </ClInclude>
+    <ClInclude Include="src\RenderSystem.h">
+      <Filter>System\D3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="System">
       <UniqueIdentifier>{99563d87-7ca4-48c9-92c9-0f6d4552319c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{382807a3-789c-4655-9b23-bc9f28e8b7d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\D3D">
+      <UniqueIdentifier>{72d66a87-1fb7-492f-961e-50214680e07a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
