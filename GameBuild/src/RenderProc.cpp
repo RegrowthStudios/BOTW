@@ -1,12 +1,11 @@
 #include "stdafx.h"
 #include "GameProcedures.h"
 
-extern HANDLE g_hThreadRender = INVALID_HANDLE_VALUE;
-extern DWORD  g_idThreadRender = 0;
+extern SysThread g_threadRender = SysThread(nullptr);
 
 // This thread is responsible for presenting the graphics.
-DWORD WINAPI renderProcedure(LPVOID lpParameter) {
-    while (WaitForSingleObject(g_hProcessTermination, 0) != WAIT_OBJECT_0) {
+DWORD renderProcedure(const SysThreadContext& pThreadCtx) {
+    while (!pThreadCtx.shouldExit()) {
         Sleep(16);
         Utils::logWarning("Faking present\n");
     }

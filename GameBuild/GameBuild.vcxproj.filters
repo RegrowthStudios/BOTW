@@ -14,6 +14,9 @@
     <ClCompile Include="src\RenderProc.cpp">
       <Filter>System</Filter>
     </ClCompile>
+    <ClCompile Include="src\SystemPrimitives.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\stdafx.h" />
@@ -29,6 +32,9 @@
       <Filter>System\D3D</Filter>
     </ClInclude>
     <ClInclude Include="src\GameProcedures.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SystemPrimitives.h">
       <Filter>System</Filter>
     </ClInclude>
   </ItemGroup>

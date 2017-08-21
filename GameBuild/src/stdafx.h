@@ -18,6 +18,7 @@
 
 // Vorb headers
 #include <Vorb\types.h>
+#include <Vorb\Delegate.hpp>
 
 #include "Global.h"
 #include "Utils.h"
