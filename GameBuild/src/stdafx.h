@@ -13,7 +13,7 @@
 #include <Windows.h>
 
 // D3D headers
-#include <dxgi.h>
+#include <dxgi1_5.h>
 #include <d3d11_4.h>
 
 // Vorb headers
