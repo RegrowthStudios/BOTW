@@ -14,6 +14,12 @@ namespace Utils {
         return (min <= v) && (v <= max);
     }
 
+    template<typename T, typename From>
+    T reinterpret_offset(From v, ptrdiff_t offset = 0) {
+        ptrdiff_t ptr = (ptrdiff_t)v;
+        return (T)(ptr + offset);
+    }
+
     template<typename... Params>
     int logWarning(const wchar_t* format, Params... params) {
         constexpr size_t bufferSize = 2048;
