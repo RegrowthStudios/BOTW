@@ -15,10 +15,12 @@ private:
     IDXGISwapChain* m_pSwapChain;
     ID3D11Device*   m_pDevice;
 
-    std::vector<D3D_FEATURE_LEVEL> m_featureLevels;
-    bool                           m_isRelease    : 1;
-    bool                           m_isValidating : 1;
-    bool                           m_isDebuggable : 1;
+    std::vector<D3D_FEATURE_LEVEL> m_featureLevels; // What features levels we can support
+
+    // These are options that control what features our D3D implementation supports
+    bool                           m_isRelease    : 1; // No availability to debugging or validation. Deterrant to 3rd party inspectors.
+    bool                           m_isValidating : 1; // D3D debug layer that validates arguments
+    bool                           m_isDebuggable : 1; // Allows inspection of D3D operations (ex. by Visual Studio).
 
     struct CreateDeviceArgs {
         IDXGIAdapter1* pAdapter;

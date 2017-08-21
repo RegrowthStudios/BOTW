@@ -2,17 +2,18 @@
 #include "RenderSystem.h"
 
 void RenderSystem::loadSystemConfig() {
+    // Empty
 }
 
 HRESULT RenderSystem::create(HWND hWnd) {
+    // For now, reset the options until we correctly load them in
     m_isRelease = false;
     m_isValidating = false;
-    m_isDebuggable = false;
+    m_isDebuggable = true;
     m_featureLevels.clear();
     m_featureLevels.emplace_back(D3D_FEATURE_LEVEL_11_1);
-    m_featureLevels.emplace_back(D3D_FEATURE_LEVEL_11_0);
-    m_featureLevels.emplace_back(D3D_FEATURE_LEVEL_10_1);
-    m_featureLevels.emplace_back(D3D_FEATURE_LEVEL_10_0);
+
+    // Clear all possibilities
     for (CreateDeviceArgs& arg : m_possibleDevices) {
         arg.pAdapter->Release();
     }
