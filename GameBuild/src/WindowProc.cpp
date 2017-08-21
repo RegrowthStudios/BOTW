@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "WindowProc.h"
+#include "GameProcedures.h"
 
 LRESULT CALLBACK gameWindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     // TODO: Implement a dispatch system.

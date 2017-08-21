@@ -169,10 +169,12 @@
   <ItemGroup>
     <ClCompile Include="src\GameWindow.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\RenderProc.cpp" />
     <ClCompile Include="src\RenderSystem.cpp" />
     <ClCompile Include="src\WindowProc.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GameProcedures.h" />
     <ClInclude Include="src\GameWindow.h" />
     <ClInclude Include="src\Global.h" />
     <ClInclude Include="src\RenderSystem.h" />
