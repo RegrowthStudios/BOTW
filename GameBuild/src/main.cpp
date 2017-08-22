@@ -19,7 +19,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
     }
 
     // Create all the threads
-    g_threadRender = SysThread::create(true, del::create(renderProcedure), del::createFromFunctor([]() {}));
+    g_threadRender = SysThread::create(true, del::create(renderProcedure), del::createFromFunctor([]() {}), &renderSystem);
 
     // Start all the threads
     g_threadRender.resume();

@@ -10,10 +10,31 @@ public:
     static void loadSystemConfig();
 
     HRESULT create(HWND hWnd);
+
+    IDXGIAdapter* getAdapter() {
+        return m_pAdapter;
+    }
+    IDXGISwapChain* getSwapChain() {
+        return m_pSwapChain;
+    }
+    ID3D11Device* getDevice() {
+        return m_pDevice;
+    }
+    ID3D11DeviceContext* getImmContext() {
+        return m_pImmContext;
+    }
+    ID3D11RenderTargetView* getBackBufferRTV() {
+        return m_pBackBuffer;
+    }
 private:
+    HRESULT initResources();
+
     IDXGIAdapter*   m_pAdapter;
     IDXGISwapChain* m_pSwapChain;
     ID3D11Device*   m_pDevice;
+
+    ID3D11DeviceContext*    m_pImmContext;
+    ID3D11RenderTargetView* m_pBackBuffer;
 
     std::vector<D3D_FEATURE_LEVEL> m_featureLevels; // What features levels we can support
 

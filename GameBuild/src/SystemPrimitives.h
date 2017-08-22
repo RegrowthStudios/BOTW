@@ -6,6 +6,7 @@ public:
 
     HANDLE         m_handle;
     DWORD          m_id;
+    void          *m_pArg;
 
     bool shouldExit() const;
 private:
@@ -25,7 +26,7 @@ public:
     static constexpr int WAIT_ALL_INITIAL_TERMINATE_MS = 50;
     static constexpr int WAIT_ALL_FINAL_TERMINATE_MS = 80;
 
-    static SysThread create(bool paused, Delegate<DWORD, const SysThreadContext&>&& fRun, Delegate<void>&& fSetToTerminate);
+    static SysThread create(bool paused, Delegate<DWORD, const SysThreadContext&>&& fRun, Delegate<void>&& fSetToTerminate, void *pArg);
     static void      terminateAll(const SysThread** pThreads, size_t numThreads);
 
     SysThread(const std::shared_ptr<SysThreadContext>& pThreadCtx);

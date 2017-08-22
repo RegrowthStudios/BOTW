@@ -75,8 +75,8 @@ HRESULT RenderSystem::create(HWND hWnd) {
         swapChainDesc.OutputWindow      = hWnd;
         swapChainDesc.SampleDesc.Count  = 1;
         swapChainDesc.Windowed          = true;
-        if (SUCCEEDED(hr = D3D11CreateDeviceAndSwapChain(arg.pAdapter, D3D_DRIVER_TYPE_UNKNOWN, NULL, createFlags, &arg.featureLevel, 1, D3D11_SDK_VERSION, &swapChainDesc, &m_pSwapChain, &m_pDevice, NULL, NULL))) {
-            return S_OK;
+        if (SUCCEEDED(hr = D3D11CreateDeviceAndSwapChain(arg.pAdapter, D3D_DRIVER_TYPE_UNKNOWN, NULL, createFlags, &arg.featureLevel, 1, D3D11_SDK_VERSION, &swapChainDesc, &m_pSwapChain, &m_pDevice, NULL, &m_pImmContext))) {
+            return initResources();
         }
         else {
             // We have a problem
@@ -86,4 +86,16 @@ HRESULT RenderSystem::create(HWND hWnd) {
     else {
         return E_FAIL;
     }
+}
+
+HRESULT RenderSystem::initResources() {
+    ID3D11Texture2D* pBackBufferTex;
+    m_pSwapChain->GetBuffer(0, IID_PPV_ARGS(&pBackBufferTex));
+    m_pDevice->CreateRenderTargetView(pBackBufferTex, NULL, &m_pBackBuffer);
+    pBackBufferTex->Release();
+
+    // This render target is the backbuffer
+    m_pImmContext->OMSetRenderTargets(1, &m_pBackBuffer, NULL);
+    
+    return S_OK;
 }

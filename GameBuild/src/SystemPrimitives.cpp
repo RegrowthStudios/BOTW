@@ -10,13 +10,14 @@ DWORD WINAPI SysThread::runThread(LPVOID pParam) {
     return pThreadCtx->m_fRun(*pThreadCtx);
 }
 
-SysThread SysThread::create(bool paused, Delegate<DWORD, const SysThreadContext&>&& fRun, Delegate<void>&& fSetToTerminate) {
+SysThread SysThread::create(bool paused, Delegate<DWORD, const SysThreadContext&>&& fRun, Delegate<void>&& fSetToTerminate, void *pArg) {
     std::shared_ptr<SysThreadContext> pThreadCtx = std::make_shared<SysThreadContext>();
 
     pThreadCtx->m_handle = CreateThread(nullptr, 0, SysThread::runThread, pThreadCtx.get(), CREATE_SUSPENDED, &pThreadCtx->m_id);
     pThreadCtx->m_fRun = std::move(fRun);
     pThreadCtx->m_fSetToTerminate = std::move(fSetToTerminate);
     pThreadCtx->m_eventTerminate = CreateEvent(nullptr, TRUE, FALSE, L"Event.ThreadTerminate");
+    pThreadCtx->m_pArg = pArg;
 
     if (!paused) {
         ResumeThread(pThreadCtx->m_handle);
