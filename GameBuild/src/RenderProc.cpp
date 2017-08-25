@@ -2,6 +2,7 @@
 #include "GameProcedures.h"
 
 #include "RenderSystem.h"
+#include "Vorb/Timing.h"
 
 extern SysThread g_threadRender = SysThread(nullptr);
 
@@ -15,14 +16,28 @@ DWORD renderProcedure(const SysThreadContext& pThreadCtx) {
     constexpr float presentFramerate = 60.0f;
     float x = 0.0f;
     f32v4 clearColor(0.0f, 0.0f, 0.0f, 1.0f);
+
+    QPCTimer timer;
+
     while (!pThreadCtx.shouldExit()) {
+        renderSystem.onFrameStart();
+
         x = fmodf(x + speed / presentFramerate, 3.14159f);
         clearColor.r = abs(sin(x + 0.0f));
         clearColor.g = abs(sin(x + 1.0f));
         clearColor.b = abs(sin(x + 2.7f));
-
         pImmContext->ClearRenderTargetView(renderSystem.getBackBufferRTV(), clearColor.data);
-        renderSystem.getSwapChain()->Present(0, 0);
+
+        // Render End
+        f64 renderTime = timer.deltaAndSetStart();
+
+        // Present contents
+        renderSystem.onFrameEnd();
+        f64 presentTime = timer.deltaAndSetStart();
+
+        char buf[128];
+        sprintf_s(buf, "Render(%.7f)  Present(%.7f)  FPS(%.3f)\n", renderTime, presentTime, 1 / (renderTime + presentTime));
+        OutputDebugStringA(buf);
     }
 
     return 0;

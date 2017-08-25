@@ -43,3 +43,15 @@ void GameWindow::destroy() {
         m_hWnd = nullptr;
     }
 }
+
+ui32 GameWindow::width() const {
+    RECT r;
+    GetClientRect(m_hWnd, &r);
+    return r.right - r.left;
+}
+
+ui32 GameWindow::height() const {
+    RECT r;
+    GetClientRect(m_hWnd, &r);
+    return r.bottom - r.top;
+}

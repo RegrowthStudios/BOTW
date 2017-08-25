@@ -19,6 +19,11 @@
 // Vorb headers
 #include <Vorb\types.h>
 #include <Vorb\Delegate.hpp>
+#include <Vorb\Event.hpp>
+template<typename T>
+using SimpleVector = std::vector<T>;
+template<typename... Args>
+using StdEvent = Event<SimpleVector, Args...>;
 
 #include "Global.h"
 #include "Utils.h"

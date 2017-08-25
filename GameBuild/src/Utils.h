@@ -41,4 +41,38 @@ namespace Utils {
         }
         return result;
     }
+
+    template<typename T>
+    void comRelease(T*& pObject) {
+        if (pObject) {
+            pObject->Release();
+            pObject = nullptr;
+        }
+    }
 }
+
+class QPCTimer {
+public:
+    QPCTimer() {
+        QueryPerformanceFrequency(&m_frequency);
+        setStart();
+    }
+
+    void setStart() {
+        QueryPerformanceCounter(&m_startPoint);
+    }
+    f64 delta() {
+        LARGE_INTEGER cur;
+        QueryPerformanceCounter(&cur);
+        return (f64)(cur.QuadPart - m_startPoint.QuadPart) / (f64)m_frequency.QuadPart;
+    }
+    f64 deltaAndSetStart() {
+        LARGE_INTEGER prev = m_startPoint;
+        QueryPerformanceCounter(&m_startPoint);
+        return (f64)(m_startPoint.QuadPart - prev.QuadPart) / (f64)m_frequency.QuadPart;
+    }
+private:
+    LARGE_INTEGER m_frequency;
+    LARGE_INTEGER m_startPoint;
+};
+

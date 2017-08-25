@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include <timeapi.h>
 
 #include "GameWindow.h"
 #include "GameProcedures.h"
@@ -11,9 +12,11 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
     // Create a window
     GameWindow window{};
     window.create(hInstance, nCmdShow, gameWindowProcedure);
+    timeBeginPeriod(1);
 
+    // Initialize the rendering engine
     RenderSystem renderSystem;
-    HRESULT hr = renderSystem.create(window.getHandle());
+    HRESULT hr = renderSystem.create(window);
     if (FAILED(hr)) {
         return -1;
     }

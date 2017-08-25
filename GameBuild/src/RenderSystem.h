@@ -1,5 +1,7 @@
 #pragma once
 
+class GameWindow;
+
 struct RenderSystemArgs {
 public:
     ui32v2 size;
@@ -9,7 +11,9 @@ class RenderSystem {
 public:
     static void loadSystemConfig();
 
-    HRESULT create(HWND hWnd);
+    RenderSystem();
+
+    HRESULT create(GameWindow& window);
 
     IDXGIAdapter* getAdapter() {
         return m_pAdapter;
@@ -26,8 +30,18 @@ public:
     ID3D11RenderTargetView* getBackBufferRTV() {
         return m_pBackBuffer;
     }
+
+    void onWindowChange(const GameWindow& window);
+
+    // Call this at the beginning and end of the frame to make sure that changes
+    // to the swapchain/backbuffer are committed correctly.
+    void onFrameStart();
+    void onFrameEnd();
+
+    // Called at the beginning of a frame when the viewport experiences a change.
+    StdEvent<> m_onViewportChange;
 private:
-    HRESULT initResources();
+    HRESULT initResources(GameWindow& window);
 
     IDXGIAdapter*   m_pAdapter;
     IDXGISwapChain* m_pSwapChain;
@@ -35,6 +49,9 @@ private:
 
     ID3D11DeviceContext*    m_pImmContext;
     ID3D11RenderTargetView* m_pBackBuffer;
+
+    volatile bool           m_windowChangeDetected;
+    D3D11_VIEWPORT          m_windowViewport;
 
     std::vector<D3D_FEATURE_LEVEL> m_featureLevels; // What features levels we can support
 

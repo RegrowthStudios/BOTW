@@ -17,6 +17,12 @@
     <ClCompile Include="src\SystemPrimitives.cpp">
       <Filter>System</Filter>
     </ClCompile>
+    <ClCompile Include="src\RenderBatch.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ShaderManager.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\stdafx.h" />
@@ -37,6 +43,12 @@
     <ClInclude Include="src\SystemPrimitives.h">
       <Filter>System</Filter>
     </ClInclude>
+    <ClInclude Include="src\RenderBatch.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ShaderManager.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="System">
@@ -48,5 +60,16 @@
     <Filter Include="System\D3D">
       <UniqueIdentifier>{72d66a87-1fb7-492f-961e-50214680e07a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics\Shaders">
+      <UniqueIdentifier>{c2cb7a2f-9788-4025-b4ba-67840b0c8e88}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="src\RenderBatchVS.hlsl">
+      <Filter>Graphics\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="src\RenderBatchPS.hlsl">
+      <Filter>Graphics\Shaders</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

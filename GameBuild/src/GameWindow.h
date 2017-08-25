@@ -12,6 +12,9 @@ public:
     void create(HINSTANCE hInstance, int nCmdShow, WNDPROC pWindowProcedure);
     void destroy();
 
+    ui32 width() const;
+    ui32 height() const;
+
     HWND getHandle() const {
         return m_hWnd;
     }

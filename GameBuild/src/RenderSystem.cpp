@@ -1,11 +1,18 @@
 #include "stdafx.h"
 #include "RenderSystem.h"
 
+#include "GameWindow.h"
+
 void RenderSystem::loadSystemConfig() {
     // Empty
 }
 
-HRESULT RenderSystem::create(HWND hWnd) {
+RenderSystem::RenderSystem() :
+    m_onViewportChange(this) {
+    // Empty
+}
+
+HRESULT RenderSystem::create(GameWindow& window) {
     // For now, reset the options until we correctly load them in
     m_isRelease = false;
     m_isValidating = false;
@@ -72,11 +79,11 @@ HRESULT RenderSystem::create(HWND hWnd) {
         swapChainDesc.BufferCount       = 1;
         swapChainDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
         swapChainDesc.BufferUsage       = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-        swapChainDesc.OutputWindow      = hWnd;
+        swapChainDesc.OutputWindow      = window.getHandle();
         swapChainDesc.SampleDesc.Count  = 1;
         swapChainDesc.Windowed          = true;
         if (SUCCEEDED(hr = D3D11CreateDeviceAndSwapChain(arg.pAdapter, D3D_DRIVER_TYPE_UNKNOWN, NULL, createFlags, &arg.featureLevel, 1, D3D11_SDK_VERSION, &swapChainDesc, &m_pSwapChain, &m_pDevice, NULL, &m_pImmContext))) {
-            return initResources();
+            return initResources(window);
         }
         else {
             // We have a problem
@@ -88,7 +95,29 @@ HRESULT RenderSystem::create(HWND hWnd) {
     }
 }
 
-HRESULT RenderSystem::initResources() {
+void RenderSystem::onWindowChange(const GameWindow& window) {
+    m_windowViewport.MinDepth = 0.0f;
+    m_windowViewport.MaxDepth = 1.0f;
+    m_windowViewport.Width = (f32)window.width();
+    m_windowViewport.Height = (f32)window.height();
+    m_windowViewport.TopLeftX = 0.0f;
+    m_windowViewport.TopLeftY = 0.0f;
+    m_windowChangeDetected = true;
+}
+
+void RenderSystem::onFrameStart() {
+    if (m_windowChangeDetected) {
+        m_pImmContext->RSSetViewports(1, &m_windowViewport);
+        m_onViewportChange();
+        m_windowChangeDetected = false;
+    }
+}
+
+void RenderSystem::onFrameEnd() {
+    m_pSwapChain->Present(1, 0);
+}
+
+HRESULT RenderSystem::initResources(GameWindow& window) {
     ID3D11Texture2D* pBackBufferTex;
     m_pSwapChain->GetBuffer(0, IID_PPV_ARGS(&pBackBufferTex));
     m_pDevice->CreateRenderTargetView(pBackBufferTex, NULL, &m_pBackBuffer);
@@ -96,6 +125,7 @@ HRESULT RenderSystem::initResources() {
 
     // This render target is the backbuffer
     m_pImmContext->OMSetRenderTargets(1, &m_pBackBuffer, NULL);
-    
+    onWindowChange(window);
+
     return S_OK;
 }
