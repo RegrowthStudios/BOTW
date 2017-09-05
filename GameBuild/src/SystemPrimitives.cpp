@@ -53,12 +53,12 @@ void SysThread::terminateAll(const SysThread** pThreads, size_t numThreads) {
     }
 
     DWORD result;
-    if (!Utils::isInRange(result = WaitForMultipleObjects(c, pHandles, TRUE, WAIT_ALL_INITIAL_TERMINATE_MS), WAIT_OBJECT_0, WAIT_OBJECT_0 + c - 1)) {
+    if (!Utils::isInRange<size_t>(result = WaitForMultipleObjects((DWORD)c, pHandles, TRUE, WAIT_ALL_INITIAL_TERMINATE_MS), WAIT_OBJECT_0, WAIT_OBJECT_0 + c - 1)) {
         // Prod threads if the initial exit event didn't work
         for (size_t i = 0; i < c; i++) {
             pThreadsToTerminate[i]->m_pThreadCtx->m_fSetToTerminate();
         }
-        if (!Utils::isInRange(result = WaitForMultipleObjects(c, pHandles, TRUE, WAIT_ALL_FINAL_TERMINATE_MS), WAIT_OBJECT_0, WAIT_OBJECT_0 + c - 1)) {
+        if (!Utils::isInRange<size_t>(result = WaitForMultipleObjects((DWORD)c, pHandles, TRUE, WAIT_ALL_FINAL_TERMINATE_MS), WAIT_OBJECT_0, WAIT_OBJECT_0 + c - 1)) {
             // Forcibly terminate unterminated threads
             for (size_t i = 0; i < c; i++) {
                 if ((result = WaitForSingleObject(pHandles[i], 0)) != WAIT_OBJECT_0) {
@@ -71,6 +71,11 @@ void SysThread::terminateAll(const SysThread** pThreads, size_t numThreads) {
     for (size_t i = 0; i < c; i++) {
         pThreadsToTerminate[i]->m_pThreadCtx->m_handle = INVALID_HANDLE_VALUE;
     }
+}
+
+SysThread::SysThread() :
+    m_pThreadCtx(nullptr) {
+    // Empty
 }
 
 SysThread::SysThread(const std::shared_ptr<SysThreadContext>& pThreadCtx) :

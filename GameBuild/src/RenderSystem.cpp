@@ -59,7 +59,7 @@ HRESULT RenderSystem::create(GameWindow& window) {
 
         ID3D11Device* pDevice;
         ID3D11DeviceContext* pContext;
-        if (FAILED(hr = D3D11CreateDevice(possible.pAdapter, D3D_DRIVER_TYPE_UNKNOWN, NULL, createFlags, m_featureLevels.data(), m_featureLevels.size(), D3D11_SDK_VERSION, &pDevice, &possible.featureLevel, &pContext))) {
+        if (FAILED(hr = D3D11CreateDevice(possible.pAdapter, D3D_DRIVER_TYPE_UNKNOWN, NULL, createFlags, m_featureLevels.data(), (UINT)m_featureLevels.size(), D3D11_SDK_VERSION, &pDevice, &possible.featureLevel, &pContext))) {
             possible.pAdapter->Release();
             continue;
         }

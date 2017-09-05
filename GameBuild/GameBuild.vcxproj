@@ -167,26 +167,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\GameProcedures.cpp" />
     <ClCompile Include="src\GameWindow.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\RenderBatch.cpp" />
-    <ClCompile Include="src\RenderProc.cpp" />
     <ClCompile Include="src\RenderSystem.cpp" />
     <ClCompile Include="src\ShaderManager.cpp" />
     <ClCompile Include="src\SystemPrimitives.cpp" />
-    <ClCompile Include="src\WindowProc.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameProcedures.h" />
     <ClInclude Include="src\GameWindow.h" />
     <ClInclude Include="src\Global.h" />
+    <ClInclude Include="src\GlobalSystems.h" />
     <ClInclude Include="src\RenderBatch.h" />
     <ClInclude Include="src\RenderSystem.h" />
     <ClInclude Include="src\ShaderManager.h" />
     <ClInclude Include="src\stdafx.h" />
     <ClInclude Include="src\SystemPrimitives.h" />
     <ClInclude Include="src\Utils.h" />
-    <ClInclude Include="src\WindowProc.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="src\RenderBatchPS.hlsl">
@@ -202,6 +201,10 @@
       <AssemblerOutputFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename).fxasm</AssemblerOutputFile>
       <AssemblerOutputFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)%(Filename).fxasm</AssemblerOutputFile>
       <AssemblerOutputFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)%(Filename).fxasm</AssemblerOutputFile>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)data\shaderobj\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)data\shaderobj\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)data\shaderobj\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)data\shaderobj\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
     <FxCompile Include="src\RenderBatchVS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
@@ -220,6 +223,10 @@
       <AssemblerOutputFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)%(Filename).fxasm</AssemblerOutputFile>
       <AssemblerOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">AssemblyCode</AssemblerOutput>
       <AssemblerOutputFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)%(Filename).fxasm</AssemblerOutputFile>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)data\shaderobj\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)data\shaderobj\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)data\shaderobj\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)data\shaderobj\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,4 +1,7 @@
 struct Input {
+    float4 position : SV_POSITION;
+    float2 uv : TEXCOORD0;
+    float4 tint : COLOR0;
 };
 
 struct Output {
@@ -9,7 +12,7 @@ Output main(Input input)
 {
     Output output;
 
-    output.color = float4(1.0f, 0.0f, 1.0f, 1.0f);
+    output.color = input.tint;
 
     return output;
 }
