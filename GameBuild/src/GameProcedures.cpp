@@ -42,8 +42,8 @@ DWORD GameProcedures::renderProcedure(const SysThreadContext& pThreadCtx) {
     RenderBatch batch;
     batch.setShaders(g_shaderManager);
     batch.beginNewBatch(renderSystem.getDevice(), pImmContext);
-    batch.draw(nullptr, f32v2(0.0f, 0.0f), f32v2(1.0f, 1.0f), ui8v4(255, 255, 0, 255));
-    batch.draw(nullptr, f32v2(0.0f, 0.5f), f32v2(1.0f, 1.0f), ui8v4(255, 0, 255, 255));
+    batch.draw(nullptr, f32v2(0.0f, 0.0f), f32v2(100.0f, 100.0f), ui8v4(255, 255, 0, 255));
+    batch.draw(nullptr, f32v2(300.0f, 100.0f), f32v2(100.0f, 100.0f), ui8v4(255, 0, 255, 255));
     batch.endBatch();
 
     while (!pThreadCtx.shouldExit()) {

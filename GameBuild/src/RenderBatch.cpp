@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "RenderBatch.h"
 
+#include <Vorb/math/MatrixMath.hpp>
+
 #include "ShaderManager.h"
 
 void RenderBatch::dispose() {
@@ -78,10 +80,10 @@ void RenderBatch::endBatch() {
     while (m_sortedQuadIndices.size() < requiredIndices) {
         ui32 startIndex = (ui32)(m_sortedQuadIndices.size() / 6) * 4;
         m_sortedQuadIndices.emplace_back(startIndex);
-        m_sortedQuadIndices.emplace_back(startIndex + 1);
-        m_sortedQuadIndices.emplace_back(startIndex + 2);
         m_sortedQuadIndices.emplace_back(startIndex + 2);
         m_sortedQuadIndices.emplace_back(startIndex + 1);
+        m_sortedQuadIndices.emplace_back(startIndex + 1);
+        m_sortedQuadIndices.emplace_back(startIndex + 2);
         m_sortedQuadIndices.emplace_back(startIndex + 3);
     }
 
@@ -112,6 +114,14 @@ void RenderBatch::endBatch() {
         desc.BindFlags = D3D11_BIND_INDEX_BUFFER;
         m_pDevice->CreateBuffer(&desc, nullptr, &m_pIndices);
     }
+    if (m_pShaderConstants == nullptr) {
+        D3D11_BUFFER_DESC desc = { 0 };
+        desc.Usage = D3D11_USAGE_DYNAMIC;
+        desc.ByteWidth = sizeof(ShaderConstants);
+        desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+        desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+        m_pDevice->CreateBuffer(&desc, nullptr, &m_pShaderConstants);
+    }
 
     // Update device buffer contents
     D3D11_MAPPED_SUBRESOURCE mappedRes;
@@ -133,24 +143,23 @@ void RenderBatch::renderBatch() {
     m_pDevCtx->VSSetShader(m_pVS->pShader.vertex, nullptr, 0);
     m_pDevCtx->PSSetShader(m_pPS->pShader.pixel, nullptr, 0);
 
-    D3D11_RASTERIZER_DESC desc;
-    ZeroMemory(&desc, sizeof(desc));
-    desc.AntialiasedLineEnable = TRUE;
-    desc.CullMode = D3D11_CULL_NONE;
-    desc.ScissorEnable = FALSE;
-    desc.MultisampleEnable = TRUE;
-    desc.FillMode = D3D11_FILL_SOLID;
-
-    ID3D11RasterizerState* rs;
-    m_pDevice->CreateRasterizerState(&desc, &rs);
-    m_pDevCtx->RSSetState(rs);
-
     UINT stride = sizeof(RenderVertex);
     UINT offset = 0;
     m_pDevCtx->IASetVertexBuffers(0, 1, &m_pVertices, &stride, &offset);
     m_pDevCtx->IASetIndexBuffer(m_pIndices, DXGI_FORMAT_R32_UINT, 0);
     m_pDevCtx->IASetInputLayout(m_pVertexLayout);
     m_pDevCtx->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+    // Update the constant buffer
+    D3D11_MAPPED_SUBRESOURCE mappedRes;
+    if (SUCCEEDED(m_pDevCtx->Map(m_pShaderConstants, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedRes)))         {
+        ShaderConstants constants;
+        constants.m_worldViewProjection = vmath::ortho<f32>(0, 1920, 0, 1080);
+        memcpy(mappedRes.pData, &constants, sizeof(ShaderConstants));
+        m_pDevCtx->Unmap(m_pShaderConstants, 0);
+    }
+    m_pDevCtx->VSSetConstantBuffers(0, 1, &m_pShaderConstants);
+
     for (RenderList& l : m_renderLists) {
         m_pDevCtx->DrawIndexed(l.quadCount * 6, l.quadOffset * 6, 0);
     }

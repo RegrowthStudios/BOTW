@@ -1,3 +1,7 @@
+cbuffer Constants : register(b0) {
+    float4x4 worldViewProjection;
+};
+
 struct Input {
     float4 position : POSITION0;
     float2 uv : TEXCOORD0;
@@ -14,7 +18,7 @@ Output main(Input input)
 {
     Output output;
     
-    output.position = input.position;
+    output.position = mul(worldViewProjection, input.position);
     output.uv = input.uv;
     output.tint = input.tint;
 

@@ -23,6 +23,10 @@ public:
         ui32 quadCount;
     };
 
+    struct ShaderConstants {
+        f32m4 m_worldViewProjection;
+    };
+
     void dispose();
 
     void setShaders(const ShaderManager& shaderManager);
