@@ -13,7 +13,7 @@ public:
 
     RenderSystem();
 
-    HRESULT create(GameWindow& window);
+    HRESULT create(GameWindow& window, bool useOpenGL = true);
 
     IDXGIAdapter* getAdapter() {
         return m_pAdapter;
@@ -43,6 +43,9 @@ public:
 private:
     HRESULT initResources(GameWindow& window);
 
+    bool createGL(GameWindow& window);
+    bool createD3D(GameWindow& window);
+
     IDXGIAdapter*   m_pAdapter;
     IDXGISwapChain* m_pSwapChain;
     ID3D11Device*   m_pDevice;
@@ -65,4 +68,6 @@ private:
         D3D_FEATURE_LEVEL featureLevel;
     };
     std::vector<CreateDeviceArgs> m_possibleDevices;
+
+    HGLRC m_glc;
 };

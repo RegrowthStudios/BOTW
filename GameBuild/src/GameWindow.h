@@ -18,6 +18,10 @@ public:
     HWND getHandle() const {
         return m_hWnd;
     }
+    HINSTANCE getAppInstance() const {
+        return m_hInstance;
+    }
 private:
     HWND m_hWnd;
+    HINSTANCE m_hInstance;
 };

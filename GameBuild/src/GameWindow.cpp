@@ -13,6 +13,8 @@ GameWindow::~GameWindow() {
 void GameWindow::create(HINSTANCE hInstance, int nCmdShow, WNDPROC pWindowProcedure) {
     destroy();
 
+    m_hInstance = hInstance;
+
     WNDCLASSEX windowClass;
     windowClass.cbSize        = sizeof(WNDCLASSEX);
     windowClass.cbClsExtra    = 0;
@@ -20,7 +22,7 @@ void GameWindow::create(HINSTANCE hInstance, int nCmdShow, WNDPROC pWindowProced
     windowClass.lpszClassName = CLASS_NAME_WINDOW;
     windowClass.lpszMenuName  = CLASS_NAME_MENU;
     windowClass.style         = CS_HREDRAW | CS_VREDRAW;
-    windowClass.hInstance     = hInstance;
+    windowClass.hInstance     = m_hInstance;
     windowClass.lpfnWndProc   = pWindowProcedure;
     windowClass.hIcon         = LoadIcon(NULL, IDI_APPLICATION);
     windowClass.hIconSm       = LoadIcon(NULL, IDI_APPLICATION);
@@ -32,7 +34,7 @@ void GameWindow::create(HINSTANCE hInstance, int nCmdShow, WNDPROC pWindowProced
     m_hWnd = CreateWindow(
         CLASS_NAME_WINDOW, DEFAULT_WINDOW_TITLE, windowFlags,
         CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
-        NULL, NULL, hInstance, NULL);
+        NULL, NULL, m_hInstance, NULL);
     ShowWindow(m_hWnd, nCmdShow);
     UpdateWindow(m_hWnd);
 }
